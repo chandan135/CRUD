@@ -4,6 +4,7 @@ const app = express();
 app.use(express.json());
 
 let arr = [];
+let ipAddress = "";
 
 app.get("/", (req, res) => {
   res.send({ msg: "Hello World" });
@@ -11,9 +12,11 @@ app.get("/", (req, res) => {
 
 app.get(["/display/:index", "/display"], (req, res) => {
   console.log(req.headers);
-
+  ipAddress += req.headers.host;
+  console.log(ipAddress);
   //console.log("params");
-  console.log(req.params);
+  console.log(req.params, " ");
+
   if (req.params.index !== undefined) {
     res.send({ data: arr[Number(req.params.index)] });
   } else {
@@ -22,6 +25,9 @@ app.get(["/display/:index", "/display"], (req, res) => {
 });
 
 app.post("/insert", (req, res) => {
+  console.log(req.headers);
+  ipAddress += req.headers.host;
+  console.log(ipAddress);
   arr.push(req.body);
   res.send({ message: "Data inserted successfully" });
 });
@@ -32,6 +38,9 @@ app.post("/insert", (req, res) => {
 // });
 
 app.delete("/delete/:index", (req, res) => {
+  console.log(req.headers);
+  ipAddress += req.headers.host;
+  console.log(ipAddress);
   console.log("params");
   console.log(req.params);
 
